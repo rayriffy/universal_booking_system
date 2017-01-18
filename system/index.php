@@ -1,5 +1,5 @@
 <?
-include('../check_inst2.php');
+include('../script/check_inst2.php');
 $file="../script/conf.json";
 $env_row=json_decode(file_get_contents($file),true);
 if($_COOKIE['login_stat']!=1)
@@ -7,8 +7,11 @@ if($_COOKIE['login_stat']!=1)
 	header('Location: ../login');
 }
 
-include('../script/sql.php');
-online_connect();
+$sqlu_file2="../script/conf.json";
+$sqlu_json2=json_decode(file_get_contents($sqlu_file2),true);
+$usr_sql2=$sqlu_json2['mysql_setup']['mysql_json_user'];
+$pas_sql2=$sqlu_json2['mysql_setup']['mysql_json_password'];
+mysql_connect('localhost',$usr_sql2,$pas_sql2) or die("Could not connect to SQL");
 mysql_select_db('vletpaoh_stem');
 ?>
 <!DOCTYPE html>
@@ -78,7 +81,6 @@ function error3() {
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons ">menu</i></a>
     </div>
   </nav>
-
 	<div class="row">
 	<h4><center><span class="card-title">Dashboard</span></center></h4>
 	</div>
@@ -636,7 +638,6 @@ function error3() {
 			</div>
 		</div>
 	</div>
-
 
   <footer class="page-footer  yellow darken-4">
     <div class="container">

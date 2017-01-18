@@ -1,13 +1,16 @@
-
 <?
 	$usr=$_REQUEST['user'];
 	$pas=$_REQUEST['pass'];
 	$pas_hash=md5(md5(md5(md5($pas))));
-	include('../script/sql.php');
-	online_connect();
+	echo $pas_hash."<br /><br />";
+	$sqlu_file2="../script/conf.json";
+	$sqlu_json2=json_decode(file_get_contents($sqlu_file2),true);
+	$usr_sql2=$sqlu_json2['mysql_setup']['mysql_json_user'];
+	$pas_sql2=$sqlu_json2['mysql_setup']['mysql_json_password'];
+	mysql_connect('localhost',$usr_sql2,$pas_sql2) or die("Could not connect to SQL");
 	mysql_select_db('vletpaoh_stem') or die ('Cannot connect to DB');
 
-	$sql="SELECT * FROM `user` WHERE `user` LIKE '$usr' AND `pass` LIKE '$pas_hash'";
+	$sql="SELECT * FROM `user` WHERE `user`='$usr' AND `pass`='$pas_hash'";
 	$res=mysql_query($sql);
 	if(mysql_fetch_row($res)==NULL || $res==NULL)
 	{

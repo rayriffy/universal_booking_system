@@ -6,11 +6,11 @@
 	echo $usr."<br />".$pas."<br />";
 	function local_connect()
 	{
-		mysql_connect("localhost",$usr,$pas) or die("Could not connect to SQL");
+		mysql_connect('localhost','$usr','$pas') or die("Could not connect to SQL");
 	}
 	function online_connect()
 	{
-		mysql_connect(localhost,$usr,$pas) or die("Could not connect to SQL");
+		mysql_connect('localhost','$usr','$pas') or die("Could not connect to SQL");
 	}
 	function disconnect()
 	{

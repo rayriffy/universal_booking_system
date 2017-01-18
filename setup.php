@@ -86,7 +86,8 @@ file_put_contents($file, json_encode($json));
   $command8q=mysql_query($command8);
 
   $query1=mysql_query($sql);
-  $new_root_pwd=md5(md5(md5(md5($_REQEST['root_password']))));
+  $pwd2=$_REQUEST['root_password'];
+  $new_root_pwd=md5(md5(md5(md5($pwd2))));
   $new_root_usr=$_REQUEST['root_user'];
   $query2=mysql_query("INSERT INTO `user`(`name`, `user`, `pass`, `permit`, `tel`, `std_id`) VALUES ('root','$new_root_usr','$new_root_pwd','admin','123','123')");
   mysql_close();
