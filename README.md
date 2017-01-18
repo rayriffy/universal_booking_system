@@ -2,6 +2,9 @@
 
 A system that ready-to-use booking system for laboratory.
 
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)]()
+[![SonarQube Coverage](https://img.shields.io/sonar/http/sonar.qatools.ru/ru.yandex.qatools.allure:allure-core/coverage.svg)]()
+
 ## Preparing environment
 - MySQL 5.7
 - PHP 5.5
