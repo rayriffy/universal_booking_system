@@ -40,7 +40,7 @@ function error3() {
 </script>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="../" class="brand-logo">BS<sup>2</sup></a>
+      <a id="logo-container" href="../" class="brand-logo"><? echo $env_row['env']['site_name']; ?></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="../">Home</a></li>
 		<?

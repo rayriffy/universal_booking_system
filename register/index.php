@@ -1,4 +1,5 @@
 <?
+error_reporting(0);
 include('../script/check_inst2.php');
 $file="../script/conf.json";
 $env_row=json_decode(file_get_contents($file),true);

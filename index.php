@@ -1,4 +1,5 @@
 <?
+  error_reporting(0);
   include('script/check_inst.php');
   $file="script/conf.json";
   $env_row=json_decode(file_get_contents($file),true);
@@ -13,7 +14,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>BS2</title>
+  <title><? echo $env_site_name; ?></title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,7 +24,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo"><? echo $env_site_name; ?></a>
+      <a id="logo-container" href="#" class="brand-logo"><? echo $env_row['env']['site_name']; ?></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Home</a></li>
 		<?

@@ -15,7 +15,7 @@
 	if(mysql_fetch_row($res)==NULL || $res==NULL)
 	{
 		mysql_close();
-		//header('Location: index.php?login_fail=1');
+		header('Location: index.php?login_fail=1');
 	}
 	else
 	{
