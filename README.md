@@ -1,4 +1,4 @@
-# Universal Booking System
+![](readme_img/Title.png)
 
 A system that ready-to-use booking system for laboratory.
 
