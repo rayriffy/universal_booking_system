@@ -8,7 +8,7 @@ mysql_connect('localhost',$usr_sql2,$pas_sql2) or die("Could not connect to SQL"
   $id=$_REQUEST['booking_item_id'];
   $amm=$_REQUEST['booking_item_amm'];
   $username=$_COOKIE['login_user'];
-  if($amm<=0)
+  if($amm<=0 || is_float($amm)==true || $is_numeric($amm)!=true)
   {
     header('Location: index.php?booking_stat=3');
     exit();
