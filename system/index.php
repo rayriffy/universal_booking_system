@@ -25,19 +25,14 @@ mysql_select_db('vletpaoh_stem');
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
 </head>
-<body <?if($_REQUEST['admin_stat']==2 || $_REQUEST['sucuess_stat']==1){?>onload="sucuess();"<?} else if($_REQUEST['booking_stat']==2) { ?>onload="error2();"<? } else if($_REQUEST['booking_stat']==3) { ?>onload="error3();"<? } ?>>
-<script>
-function sucuess() {
-    alert("Processing Completed!");
-}
-function error2() {
-    alert("ERR: Incorrect ITEM_ID");
-}
-function error3() {
-    alert("ERR: Incorrect AMOUNT");
-}
-</script>
+<body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="../" class="brand-logo"><? echo $env_row['env']['site_name']; ?></a>
@@ -83,6 +78,34 @@ function error3() {
   </nav>
 	<div class="row">
 	<h4><center><span class="card-title">Dashboard</span></center></h4>
+	</div>
+	<div class="container">
+	<?
+		if($_REQUEST['admin_stat']==2 || $_REQUEST['sucuess_stat']==1)
+		{
+	?>
+	<div class='row'><div class='chip green lighten-1 col s12'><font color='white'><center>Processing completed</font><i class='close material-icons'>close</i></center></div></div>
+	<?
+		}
+		else if($_REQUEST['booking_stat']==2)
+		{
+	?>
+	<div class='row'><div class='chip red lighten-1 col s12'><font color='white'><center>ERROR: Incorrect ITEM_ID</font><i class='close material-icons'>close</i></center></div></div>
+	<?
+		}
+		else if($_REQUEST['booking_stat']==3)
+		{
+	?>
+	<div class='row'><div class='chip red lighten-1 col s12'><font color='white'><center>ERROR: Incorrect AMOUNT</font><i class='close material-icons'>close</i></center></div></div>
+	<?
+		}
+		else if($_REQUEST['sucuess_stat']==3)
+		{
+	?>
+	<div class='row'><div class='chip red lighten-1 col s12'><font color='white'><center>ERROR: Invalid Input</font><i class='close material-icons'>close</i></center></div></div>
+	<?
+		}
+	?>
 	</div>
 
 	<div class="row">
@@ -173,7 +196,21 @@ function error3() {
 							<form action="booking.php" method="POST">
 								<div class="s12 m4 l2"></div>
 								<div class="input-field s12 m4 l3">
-									  <input placeholder="Item ID" id="booking_item_id" name="booking_item_id" type="text" class="validate">
+										<select name="booking_item_id">
+												<option value="" disabled selected>Choose item</option>
+											<?
+												$riffy_sql="SELECT * FROM `item`";
+												$riffy_query=mysql_query($riffy_sql);
+												while($item_list_row=mysql_fetch_row($riffy_query))
+												{
+													$riffy_check_stat=$item_list_row[0];
+											?>
+												<option value="<? echo $riffy_check_stat; ?>"><? echo $item_list_row[1]; ?></option>
+											<?
+												}
+											?>
+										</select>
+										<label>Item List</label>
 								</div>
 								<div class="input-field s12 m4 l3">
 									  <input placeholder="Amount" id="booking_item_amm" name="booking_item_amm" type="text" class="validate">
@@ -394,7 +431,7 @@ function error3() {
 					<div class="modal-footer">
 					  <a href="#!" class=" modal-action modal-close waves-effect  btn-flat">CLOSE</a>
 					  <a class="modal-trigger waves-effect  btn-flat" href="#itemadd1" onclick="$('#itemadd1').openModal();">ADD ITEM</a>
-					  <a class="modal-trigger waves-effect  btn-flat" href="#itemremove1" onclick="$('#itemremove1').openModal();">REMOVE ITEM</a>
+					  <a class="modal-trigger waves-effect  btn-flat <? if($riffy_check_stat==NULL){ echo 'disabled'; } ?>" href="#itemremove1" onclick="$('#itemremove1').openModal();">REMOVE ITEM</a>
 					</div>
 				  </div>
 
@@ -440,7 +477,7 @@ function error3() {
 						<div class="input-field">
 							  <input placeholder="Item Name" id="add_name" name="add_name" type="text" class="validate">
 							  <input placeholder="Item Ammount" id="add_amm" name="add_amm" type="text" class="validate">
-							  <button class="btn-green" type="submit">SUBMIT</button>
+							  <button class="waves-effect waves-light btn yellow darken-4" type="submit">SUBMIT</button>
 						</div>
 					  </form>
 					  </div>
@@ -460,8 +497,24 @@ function error3() {
 					  <div class="container">
 					  <form action="item_remove.php" method="POST">
 
-						<div class="input-field">
-							  <input placeholder="Please enter item ID and then press [ENTER]" id="remov_id" name="remov_id" type="text" class="validate">
+						<div class="input-field s12">
+								<select name="remov_id">
+										<option value="" disabled selected>Choose item</option>
+									<?
+										$riffy_sql="SELECT * FROM `item`";
+										$riffy_query=mysql_query($riffy_sql);
+										while($item_list_row=mysql_fetch_row($riffy_query))
+										{
+									?>
+										<option value="<? echo $item_list_row[0]; ?>"><? echo $item_list_row[1]; ?></option>
+									<?
+										}
+									?>
+								</select>
+								<label>Item List</label>
+						</div>
+						<div class="input-field s12">
+							<button class="waves-effect waves-light btn yellow darken-4" type="submit">SUBMIT</button>
 						</div>
 					  </form>
 					  </div>
@@ -671,3 +724,9 @@ function error3() {
 
   </body>
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
