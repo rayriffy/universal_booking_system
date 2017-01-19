@@ -2,11 +2,11 @@
  if($_COOKIE['login_permit']=='member'){ echo 'TO DO'; } else{
  $req_name=$_REQUEST['add_name'];
  $req_amm=$_REQUEST['add_amm'];
-  if($req_amm<=0 || $req_name==NULL || $req_name==NULL || is_float($req_amm)==true || $is_numeric($req_amm)!=true)
+ if($req_amm<=0 || $req_name==NULL || $req_name==NULL || $req_amm-(int)$req_amm!=0 || is_numeric($req_amm)!=true)
   {
     header('Location: index.php?sucuess_stat=3');
-    exit();
   }
+  exit();
 
  	$sqlu_file2="../script/conf.json";
  	$sqlu_json2=json_decode(file_get_contents($sqlu_file2),true);
