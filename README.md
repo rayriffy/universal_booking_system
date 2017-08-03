@@ -1,9 +1,9 @@
 ![](readme_img/Title.png)
 
-A system that ready-to-use booking system for laboratory.
+A ready-to-use booking system for laboratory.
 
 ## Preparing environment
-- MySQL 5.7
+- MySQL 5.7 or above (We recommend MariaDB for more security protection)
 - PHP 5.5
 - Apache 2
 
